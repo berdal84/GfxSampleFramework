@@ -2,6 +2,7 @@
 #ifndef frm_def_h
 #define frm_def_h
 
+#include <frm/def.h>
 #include <apt/def.h>
 #include <apt/types.h>
 

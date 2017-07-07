@@ -2,8 +2,8 @@
 #ifndef im3d_config_h
 #define im3d_config_h
 
-#include <frm/def.h>
-#include <frm/math.h>
+#include "frm/def.h"
+#include "frm/math.h"
 
 // User-defined assertion handler (default is cassert assert()).
 #define IM3D_ASSERT(e) APT_ASSERT(e)

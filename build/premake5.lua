@@ -1,3 +1,5 @@
+require('cmake')
+
 include "GfxSampleFramework_config.lua"
 
 local EXTERN_DIR      = "../extern/"
@@ -6,6 +8,7 @@ local SRC_DIR         = "../src/"
 local ALL_SRC_DIR     = SRC_DIR .. "all/"
 local ALL_EXTERN_DIR  = ALL_SRC_DIR .. "extern/"
 local WIN_SRC_DIR     = SRC_DIR .. "win/"
+local LINUX_SRC_DIR     = SRC_DIR .. "linux/"
 local VR_ALL_SRC_DIR  = SRC_DIR .. "vr/all/"
 local TESTS_DIR       = "../tests/"
 local ALL_TESTS_DIR   = TESTS_DIR .. "all/"
@@ -28,10 +31,14 @@ filter { "action:vs*" }
 workspace "GfxSampleFramework"
 	location(_ACTION)
 	configurations { "Debug", "Release" }
-	platforms { "Win64" }
+	platforms { "Win64", "Linux64" }
 	flags { "C++11", "StaticRuntime" }
 	filter { "platforms:Win64" }
 		system "windows"
+		architecture "x86_64"
+	
+	filter { "platforms:Linux64" }
+		system "linux"
 		architecture "x86_64"
 	
 	defines { "GLEW_STATIC" }
@@ -47,7 +54,14 @@ workspace "GfxSampleFramework"
 			APT_DIR .. "src/win/",
 			APT_DIR .. "src/win/extern/",
 			})
-
+			
+	filter { "platforms:Linuxn*" }
+		includedirs({ 
+			WIN_SRC_DIR, 
+			APT_DIR .. "src/linux/",
+			APT_DIR .. "src/linux/extern/",
+			})
+			
 	group "libs"
 		externalproject "ApplicationTools"
 			location(APT_DIR .. "build/" .. _ACTION)
@@ -65,6 +79,7 @@ workspace "GfxSampleFramework"
 				["*"]      = ALL_SRC_DIR .. "frm/**",
 				["extern/*"] = ALL_EXTERN_DIR .. "**", 
 				["win"]    = WIN_SRC_DIR .. "frm/**",
+				["linux"]    = LINUX_SRC_DIR .. "frm/**",
 				})
 			
 			files({ 
@@ -85,6 +100,14 @@ workspace "GfxSampleFramework"
 					WIN_SRC_DIR .. "**.hpp",
 					WIN_SRC_DIR .. "**.c",
 					WIN_SRC_DIR .. "**.cpp",
+				})
+			
+			filter { "platforms:Linux*" }
+				files({ 
+					LINUX_SRC_DIR .. "**.h",
+					LINUX_SRC_DIR .. "**.hpp",
+					LINUX_SRC_DIR .. "**.c",
+					LINUX_SRC_DIR .. "**.cpp",
 				})
 	group ""
 		

@@ -1,0 +1,4 @@
+/home/dallecortb/Apps/clion-2017.1.2/bin/cmake/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /home/dallecortb/GfxSampleFramework
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/dallecortb/GfxSampleFramework/cmake-build-debug
